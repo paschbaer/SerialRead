@@ -22,7 +22,7 @@ void setup()
 
 void loop()
 {
-  char buff[256];
+  char buff[512];
 
   Serial.println("\r\nListening on port one");
   portOne.listen();
@@ -37,11 +37,16 @@ void loop()
       sprintf(buff + (3 * i++), "%.02X ", portOne.read());
     }
     Serial.println(buff);
+
+    delay(100);
+    availOne = portOne.available();
   }
 
-  delay(500);
+  delay(100);
 
-  Serial.println("\r\nListening on port two:");
+  /*delay(500);
+
+  Serial.println("\r\nListening on port two");
   portTwo.listen();
   int availTwo = portTwo.available();
   while (availTwo > 0)
@@ -56,6 +61,6 @@ void loop()
     Serial.println(buff);
   }
 
-  delay(500);
+  delay(500);*/
 
 }
