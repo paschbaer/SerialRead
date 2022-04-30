@@ -8,6 +8,8 @@ SoftwareSerial portOne(D7, D8);
 //Iskra MT681
 SoftwareSerial portTwo(D5, D6);
 
+SoftwareSerial* pCurPort = nullptr;
+
 sml_states_t curStatePortOne;
 
 #define MAX_STR_MANUF 5
@@ -95,15 +97,17 @@ void setup()
   Serial.setDebugOutput(true);
   Serial.println("\r\n");
 
-  portOne.begin(9600);
+  pCurPort = &portOne;
+  //pCurPort = &portTwo;
 
-  portTwo.begin(9600);
+  pCurPort->begin(9600);
+
 }
 
 void loop()
 {
-  while (portOne.available() > 0)
+  while (pCurPort->available() > 0)
   {
-    HandleByte(portOne.read(), curStatePortOne);
+    HandleByte(pCurPort->read(), curStatePortOne);
   }
 }
